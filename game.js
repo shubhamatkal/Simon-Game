@@ -1,6 +1,18 @@
 var buttonColours = ["red", "blue", "green", "yellow"];
 var gamePattern = [];
 var userClickedPattern = [];
+//variable for game started or not
+var started = false;
+var level = 0;
+
+//check if the user keyboard key is pressed or not , i fpressed then start the game
+$(document).keypress(function(){
+if (!started){
+$("#level-title").text("Level " + level);
+nextSequence();
+started = true;
+}})
+
 
 //check with of the button is clicked by the user
 $(".btn").click(function(){
@@ -15,6 +27,8 @@ animatePress(userChosenColour);
 
 
 function nextSequence(){
+level++;
+$("#level-title").text("Level "+level);
 var randomNumber = Math.floor(Math.random() * 4);
 var randomChosenColour = buttonColours[randomNumber];
 gamePattern.push(randomChosenColour);
@@ -25,7 +39,6 @@ $("#"+randomChosenColour).fadeOut(100).fadeIn(100);
 playSound(randomChosenColour)
 
 animatePress(randomChosenColour);
-
 }
 
 //create a play sound function
